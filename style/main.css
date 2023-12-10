@@ -1,0 +1,23 @@
+body{
+    background-color: antiquewhite;
+}
+
+
+h1, h2, h3, h4, h5, h6{
+    text-align: center;
+}
+
+header{
+    background-color: palevioletred;
+    padding: 2vh 0;
+}
+
+#lang{
+    text-align: right;
+
+}
+
+#lang a{
+    padding: 0 2vw;
+}
+
