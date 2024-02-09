@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zbieractwo</title>
+ <link rel="stylesheet" href="main.css">
+    <script src="./setOps.js"></script>
+</head>
+
+<body>
+    <center>
+        <h1>Zbiory</h1>
+        <hr>
+        <div class="smietnik">
+            <canvas id="rysowanie"></canvas>
+            <div class="controlPanel">
+                <h2>Centrum dowodzenia</h2>
+                <label for="liczbaZbiorów">Liczba zbiorów:</label>
+                <input type="number" name="liczbaZbiorow" id="liczbaZbiorow" min="1" max="15" step="1" value="3"
+                    oninput="generateSets(liczbaZbiorow.value)">
+                <big>
+                    <p><label for="instruction">Wprowadź polecenie: </label><input type="text" name="instruction"
+                            id="instruction" oninput="parseInstruction(instruction.value)"></p>
+                </big>
+                <p id="error"></p>
+                <table>
+                    <tr>
+                        <th colspan="2">Instrukcja obsługi</th>
+                    </tr>
+                    <tr>
+                        <th>Instrukcja</th>
+                        <th>Działanie</th>
+                    </tr>
+                    <tr>
+                        <td>+</td>
+                        <td>Suma zbiorów</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>Część wspólna zbiorów</td>
+                    </tr>
+                    <tr>
+                        <td>&Backslash;</td>
+                        <td>Różnica zbiorów</td>
+                    </tr>
+                    <tr>
+                        <td>/</td>
+                        <td>Suma wykluczająca zbiorów (XOR)</td>
+                    </tr>
+                    <tr>
+                        <td>litera</td>
+                        <td>Zbiór, na którym należy działać</td>
+                    </tr>
+                    <tr>
+                        <td>litera'</td>
+                        <td>Dopełnienie zbioru</td>
+                    </tr>
+                    <tr class="tech">
+                        <td>(</td>
+                        <td>zwiększ głębokość interpretacji</td>
+                    </tr>
+                    <tr class="tech">
+                        <td>)</td>
+                        <td>zmniejsz głębokość interpretacji</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <p>Notatka: program nie rozróżnia wielkości znaków. Nieprawidłowe znaki są ignorowane.</p>
+        <p><label for="enableTech">Włącz tryb debugowania</label><input type="checkbox" name="enableTech"
+                id="enableTech"
+                onchange="for(e of document.getElementsByClassName('tech')) e.style.visibility = enableTech.checked ? 'initial' : 'collapse';">
+        </p>
+
+        <hr class="tech">
+        <div class="tech">
+            <h4>Techniczne rzeczy</h4>
+            <p><label for="forceCharset">Wymuszaj poprawny zestaw znaków</label><input type="checkbox"
+                    name="forceCharset" id="forceCharset"></p>
+            <p><label for="clearCanvas">Czyść tablicę przed operacją</label><input type="checkbox" name="clearCanvas"
+                    id="clearCanvas" checked></p>
+            <table style="width: 33%;">
+                <tr>
+                    <th colspan="2">Sprawdzanie funkcji na (A, B)</th>
+                </tr>
+                <tr>
+                    <td>Suma</td>
+                    <td><button onclick="summation([sets[0], sets[1]], clearCanvas.checked, true)">+</button></td>
+                </tr>
+                <tr>
+                    <td>Część wspólna</td>
+                    <td><button onclick="intersection([sets[0], sets[1]], clearCanvas.checked, true)">-</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Różnica</td>
+                    <td><button onclick="subtraction([sets[0], sets[1]], clearCanvas.checked, true)">\</button></td>
+                </tr>
+                <tr>
+                    <td>XOR</td>
+                    <td><button onclick="xor([sets[0], sets[1]], clearCanvas.checked, true)">/</button></td>
+                </tr>
+                <tr>
+                    <td>Negacja (wszystkiego)</td>
+                    <td><button onclick=negation()>'</button></td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <footer>
+            Kamil Bublij, II 2024
+        </footer>
+    </center>
+</body>
+<script src="zbiory.js" onload="firstRun()"></script>
+
+</html>

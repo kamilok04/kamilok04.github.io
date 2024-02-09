@@ -1,0 +1,48 @@
+#rysowanie {
+    width: 800px;
+    height: 800px;
+    border: 2px solid black
+}
+
+.set {
+    font-size: x-large;
+}
+
+table,
+table th,
+table td {
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+#error {
+    color: red;
+    font-family: monospace;
+}
+
+.tech {
+    visibility: collapse;
+    color: gray;
+    font-style: italic;
+}
+
+td button {
+    width: 100%;
+}
+
+.smietnik {
+    padding:1rem 3rem;
+    display: flex;
+    flex-flow:row;
+    flex-wrap:wrap;
+    justify-content: center;
+    align-items:center;
+    align-content: space-between;
+    
+}
+.smietnik> *{
+    margin:3rem;
+}
+.controlPanel{
+    flex: 1;
+}

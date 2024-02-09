@@ -1,0 +1,114 @@
+{
+    "+": {
+      "canFirst": false,
+      "canLast": false,
+      "canStandAfter": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    "-": {
+      "canFirst": false,
+      "canLast": false,
+      "canStandAfter": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    "\\": {
+      "canFirst": false,
+      "canLast": false,
+      "canStandAfter": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    "/": {
+      "canFirst": false,
+      "canLast": false,
+      "canStandAfter": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    "(": {
+      "canFirst": true,
+      "canLast": false,
+      "canStandAfter": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    ")": {
+      "canFirst": false,
+      "canLast": true,
+      "canStandAfter": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    "'": {
+      "canFirst": false,
+      "canLast": true,
+      "canStandAfter": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    "(lit)": {
+      "canFirst": true,
+      "canLast": true,
+      "canStandAfter": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    }
+  }
