@@ -13,6 +13,17 @@ table th,
 table td {
     border: 1px solid;
     border-collapse: collapse;
+    text-align: center;
+}
+
+.osk{
+    font-size: large;
+    font-weight: bold;
+
+}
+.mono{
+    font-family: monospace;
+    font-size: x-large;
 }
 
 #error {
@@ -26,7 +37,7 @@ table td {
     font-style: italic;
 }
 
-td button {
+button.tech {
     width: 100%;
 }
 

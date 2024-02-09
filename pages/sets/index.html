@@ -19,7 +19,7 @@
                 <h2>Centrum dowodzenia</h2>
                 <label for="liczbaZbiorów">Liczba zbiorów:</label>
                 <input type="number" name="liczbaZbiorow" id="liczbaZbiorow" min="1" max="15" step="1" value="3"
-                    oninput="generateSets(liczbaZbiorow.value);instruction.value = '';">
+                    oninput="generateSets(liczbaZbiorow.value)">
                 <big>
                     <p><label for="instruction">Wprowadź polecenie: </label><input type="text" name="instruction"
                             id="instruction" oninput="parseInstruction(instruction.value)"></p>
@@ -34,19 +34,20 @@
                         <th>Działanie</th>
                     </tr>
                     <tr>
-                        <td>+</td>
+                        <td><span class="mono">+</span> albo <button class="osk" onclick="instruction.value+='∪'">∪</button></td>
+
                         <td>Suma zbiorów</td>
                     </tr>
                     <tr>
-                        <td>-</td>
+                        <td><span class="mono">-</span> albo <button class="osk" onclick="instruction.value+='∩'">∩</button></td>
                         <td>Część wspólna zbiorów</td>
                     </tr>
                     <tr>
-                        <td>&Backslash;</td>
+                        <td><span class="mono">&Backslash;</span></td>
                         <td>Różnica zbiorów</td>
                     </tr>
                     <tr>
-                        <td>/</td>
+                        <td><span class="mono">/</span> albo <button class="osk" onclick="instruction.value+='÷'">÷</button></td>
                         <td>Suma wykluczająca zbiorów (XOR)</td>
                     </tr>
                     <tr>

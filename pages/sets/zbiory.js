@@ -115,10 +115,10 @@ function parseInstruction(instruction) {
 function preformat(instruction) {
     // wstępnie sformatuj
     let inst = instruction.toUpperCase();
-    inst = inst.replace(/\s+|[^\+\-\\\/\(\)\'A-Z]/g, "") //wyrzuć wszystkie zbędne znaki
-    .replace('∪', '+')
-    .replace('∩', '-')
-    .replace('÷', '/');
+    inst = inst.replaceAll('∪', '+')
+    .replaceAll('∩', '-')
+    .replaceAll('÷', '/')
+    .replace(/\s+|[^\+\-\\\/\(\)\'A-Z]/g, ""); //wyrzuć wszystkie zbędne znaki
     console.log(inst);
 
     if (forceCharset.checked) document.getElementById('instruction').value = inst;
