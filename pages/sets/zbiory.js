@@ -95,6 +95,7 @@ function parseInstruction(instruction) {
     let inst = preformat(instruction);
     if (inst === false) {
         parseError('Podaj poprawną instrukcję', 'blue');
+        regenerate();
         return false;
     }
 
@@ -149,6 +150,7 @@ function validateInput(inst) {
             else if (setCode >= sets.length) {
                 // błąd: niepoprawny zbiór
                 parseError('Niepoprawny zbiór!');
+                regenerate();
                 return false;
             }
             char = '(lit)';
@@ -156,6 +158,7 @@ function validateInput(inst) {
         if (i == 0) {
             if (!symbolProperties[char].canFirst) {
                 parseError('Niepoprawny pierwszy znak!');
+                regenerate();
                 return;
             }
             if (char == '(') {
@@ -167,6 +170,7 @@ function validateInput(inst) {
         if (!symbolProperties[char].canStandAfter[symbolMapping]) {
             // nieprawidłowe polecenie
             parseError('Niepoprawne polecenie!');
+            regenerate();
             return;
         }
         if (char == '(') {
@@ -178,6 +182,7 @@ function validateInput(inst) {
             depth--;
             if (depth < 0) {
                 parseError('Nieprawidłowy nawias!')
+                regenerate();
                 return;
             }
 
@@ -186,10 +191,13 @@ function validateInput(inst) {
     };
     if (depth != 0) {
         parseError("Niedomkniętych nawiasów: " + depth);
+        regenerate();
     } else if (!symbolProperties[this.previousSymbol].canLast) {
         parseError("Niedokończona instrukcja!")
     } else {
         parseError("");
+        regenerate();
+        redraw();
         return true;
     }
 }
@@ -306,3 +314,4 @@ async function pressXToJason(file, f) {
 }
 clear = (c = context, w = canvas.width, h = canvas.height) => c.clearRect(0, 0, w, h);
 parseError = (text, color = 'red') => error.innerHTML = `<span style="color: ${color}">${text}</span>`;
+regenerate = () => {clear(); redraw();}
