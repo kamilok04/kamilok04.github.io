@@ -28,6 +28,8 @@ function firstRun(){
     xc.fillStyle = 'red';
     xc.fillRect(0, 0, X.width, X.height);
     generateSets(3);
+    liczbaZbiorow.addEventListener('keydown',
+    (e) => {["e", "E", "+", "-", '.', ','].includes(e.key) && e.preventDefault()});
 }
 /**
  * @abstract Rysuje n zbiorów
