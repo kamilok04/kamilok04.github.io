@@ -18,8 +18,8 @@
             <div class="controlPanel">
                 <h2>Centrum dowodzenia</h2>
                 <label for="liczbaZbiorów">Liczba zbiorów:</label>
-                <input type="number" name="liczbaZbiorow" id="liczbaZbiorow" min="1" max="15" step="1" value="3"
-                    oninput="generateSets(liczbaZbiorow.value)">
+                <input type="number" name="liczbaZbiorow" id="liczbaZbiorow" min="1" max="23" step="1" value="3"
+                    oninput="if(liczbaZbiorow.value < 0 || liczbaZbiorow.value > 23) liczbaZbiorow.value = 23; generateSets(liczbaZbiorow.value); instruction.value =''">
                 <big>
                     <p><label for="instruction">Wprowadź polecenie: </label><input type="text" name="instruction"
                             id="instruction" oninput="parseInstruction(instruction.value)"></p>
@@ -34,12 +34,12 @@
                         <th>Działanie</th>
                     </tr>
                     <tr>
-                        <td><span class="mono">+</span> albo <button class="osk" onclick="instruction.value+='∪'">∪</button></td>
+                        <td><span class="mono">+</span> albo <button class="osk" onclick="instruction.value+='∪'; instruction.focus();">∪</button></td>
 
                         <td>Suma zbiorów</td>
                     </tr>
                     <tr>
-                        <td><span class="mono">-</span> albo <button class="osk" onclick="instruction.value+='∩'">∩</button></td>
+                        <td><span class="mono">-</span> albo <button class="osk" onclick="instruction.value+='∩'; instruction.focus()">∩</button></td>
                         <td>Część wspólna zbiorów</td>
                     </tr>
                     <tr>
@@ -47,7 +47,7 @@
                         <td>Różnica zbiorów</td>
                     </tr>
                     <tr>
-                        <td><span class="mono">/</span> albo <button class="osk" onclick="instruction.value+='÷'">÷</button></td>
+                        <td><span class="mono">/</span> albo <button class="osk" onclick="instruction.value+='÷'; instruction.focus()">÷</button></td>
                         <td>Suma wykluczająca zbiorów (XOR)</td>
                     </tr>
                     <tr>
