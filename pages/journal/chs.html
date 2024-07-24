@@ -8,9 +8,9 @@
 </head>
 
 <body bgcolor="hell of an adressing system innit">
-    <h2>Coś o CHS, czyli dlaczego nowe systemy muszą* używać technologii lat 60'</h2>
+    <h1 align="center">Coś o CHS, czyli dlaczego nowe systemy muszą* używać technologii lat 60'</h1>
     <div>
-    <p>
+        <p>
             Gdzie jest twoje zdjęcie kotka? Zgadza się, gdzieś w RAM, ale najpierw musiało się tam jakoś znaleźć.
             Skąd system wie, gdzie na dysku tego szukać? Dobrze byłoby komputerowi powiedzieć <i>szukaj w 2137.
                 sektorze od początku dysku</i> (co to sektor, o tym zaraz). Wiesz jak takie coś zrobić? Brawo,
@@ -26,7 +26,7 @@
             BIOSów, a one są starsze niż pomysł LBA; jakoś już tak więc zostało. Dokładna <span class="underdots"
                 title="Nie ma czegoś takiego! BIOSu nigdy nie ustandaryzowano i każdy producent robił, co chciał. Fajnie, nie?">dokumentacja</span>
             nakazuje jakoś tak:
-            <pre>
+        <pre>
 AH = 2
 AL = ile sektorów chcesz?
 CH = niskie 8 bitów numeru cylindra
@@ -35,13 +35,13 @@ DH = numer głowicy
 DL = numer dysku
 ES:BX = wskaźnik do miejsca, w które ma się wczytać
             </pre>
-            <p>
-                Jeśli nie wiesz, jak działają rejestry trybu rzeczywistego, to czeka cię niespodzianka :)
-                <sub>
-                    A jak już przy tym jesteś, to przeczytaj sobie o trzech różnych rodzajach skoków i sześciu różnych
+        <p>
+            Jeśli nie wiesz, jak działają rejestry trybu rzeczywistego, to czeka cię niespodzianka :)
+            <sub>
+                A jak już przy tym jesteś, to przeczytaj sobie o trzech różnych rodzajach skoków i sześciu różnych
                 sposobach adresowania
-                </sub>
-            </p>
+            </sub>
+        </p>
         </p>
         <p>Tutaj warto sobie powiedzieć, co to w zasadzie jest ten CHS i o co chodzi z nim. Żeby to szybko
             zrozumieć, potraktuj swój dysk twardy jak ciasto.</p>
@@ -76,13 +76,74 @@ ES:BX = wskaźnik do miejsca, w które ma się wczytać
         </p>
         <p>Brawo, właśnie wziąłeś <s>ciasta</s> dysku o adresie CHS (0, 1, X)! <b>Dlaczego CHS to zły pomysł?</b>
         </p>
-        <p>Dla zabawy załóżmy, że nasz blok mieści w sobie 1 KB. Możemy zobaczyć z obrazków, że nasz ciastodysk ma
+        <h3>Rozmiar dysku CHS</h3>
+        <p>Dla zabawy załóżmy, że nasz blok mieści w sobie 1 KB. Możemy zobaczyć z obrazków, że nasz ciasto-dysk ma
             jakieś 12 sektorów, 4 cylindry i 3 głowice. Razem nam wychodzi, że nasze ciasto mieści: 12 * 4 * 3 * 1 =
-            144 [KB]. Skromnie, ale przynajmniej dzięki temu możemy uznać nasze ciasto za dietetyczne :) A poważnie,
-            limit adresowania CHS to trochę mniej niż 8GB - jak na współczesne standardy, raczej mało. Co robiły
-            większe dyski, żeby BIOS mógł z nich czytać? Kłamały, a jak! Kontrolery dysków podawało BIOSowi inną
-            geometrię niż rzeczywista i służyły jako pośrednik: tłumaczyły geometrię programową na fizyczną i
-            odwrotnie.</p>
+            144 [KB]. Skromnie, ale przynajmniej dzięki temu możemy uznać nasze ciasto za dietetyczne :) </p>
+        <p>
+            Oczywiście przy okazji prawdziwego dysku twardego nikt do środka nie będzie zaglądał i sprawdzał, ile czego
+            jest - dlatego producent dysku miał w zwyczaju podawać trzy parametry geometrii swojego klocka:
+        <ol>
+            <li>liczba ścieżek na talerz (zazwyczaj głowica ma dwa talerze, na wierzchu i spodzie, ale dla adresowania
+                to nie ma znaczenia),</li>
+            <li>liczba talerzy/głowic,</li>
+            <li>liczba sektorów na każdym cylindrze.</li>
+        </ol>
+        </p>
+        <p>
+            Rozważmy przykładowy dysk:
+            <center>
+                <img src="/media/img/oldharddrive.jpg" alt="Przykładowy dysk twardy o wymiarach 615/4/17">
+                <p><i>Rysunek 5: dysk twardy o wymiarach 615/4/17 (nie znam autora, kontakt mile widziany)</i></p>
+            </center>
+        </p>
+        <p>
+            Dysk nosi datę produkcji III 1990, wtedy podawanie parametrów dysków ręcznie przez kierownika zmiany (?)
+            było normą. Druga opcja: użytkownik sam sobie te dane sprawdził i spisał, żeby nie musieć więcej ich szukać.
+            <br>
+            Wszystkie trzy parametry są tu podane, dokładnie w tej kolejności. Tak na każdym dysku powinno zawsze być i
+            zazwyczaj jest (tak, kolejność ma znaczenie - o tym później).
+            Wnikliwy obserwator zobaczy, że brakuje jednej kluczowej zmiennej: rozmiaru bloku. Przyjęło się, że dyski
+            twarde mają 512-bajtowe bloki i to jest rozwiązanie tak powszechne, że brak opisu oznacza właśnie
+            512-bajtowy blok.
+        </p>
+        <p>Sprawdźmy, czy dysk ma obiecane 20MB: <tt>512 * 615 * 4 * 17 = 21307392 [B] = 20808 [KB] &approx; 20.3 [MB]
+            </tt> - zgadza się!</p>
+        <p>To genialne rozwiązanie! <b>Dlaczego już tego nie używamy?</b></p>
+        <p>
+            Rozważmy inny przykładowy dysk:
+            <center>
+                <img src="/media/img/harddrive.jpg" alt="Przykładowy dysk twardy o wymiarach 16383/16/63">
+                <p><i>Rysunek 6: dysk twardy o wymiarach 16383/16/63 (zdjęcie autorstwa <a
+                            href="https://commons.wikimedia.org/wiki/User:Solomon203">Solomon203</a>)</i></p>
+            </center>
+        </p>
+        <p>
+            Sprawdźmy czy faktycznie taka geometria daje obiecane 500GB:
+            <tt align="center">512 * 16383 * 16 * 63 = 8455200768 [B] &approx; 8063.51 [MB]</tt>
+        </p>
+        <p>Kiedy ostatnio sprawdzałem, to 7.9 &lap; 500. Gdzie jest reszta miejsca?</p>
+        <p>Odpowiedź już się w tym wpisie pojawiła, ale trzeba mieć albo a) genialną intuicję, albo b) wiedzieć, co się dzieje, żeby od razu to zauważyć. Wróćmy do przerwania BIOS z początku, przypomnę potrzebne rzeczy:
+            <pre>
+    CH = niskie 8 bitów numeru cylindra
+    CL = wysokie 2 bity numeru cylindra, numer sektora
+    DH = numer głowicy</pre>
+    Jak nie patrzeć, wynika z tego, że indeks cylindra to 10-bitowa liczba, a indeksy głowicy i sektora mają odpowiednio 8 i 6 bajtów. 
+    To dałoby nam maksymalny możliwy rozmiar dysku (przy standardowych blokach) <tt>512 * 1024 * 256 * 63 = 8064 [MB] = 8 GB - 128 MB</tt>. Mniej więcej 8GB, ale tu trzeba poruszyć kilka wątków:
+    <ul>
+        <li><B>Dlaczego 1024 cylindry, skoro największa 10-bitowa liczba to 1023?</B> Osoby odpowiedzialne za ten system mądrze założyły, że nie ma dysku bez cylindrów, więc cylinder <tt>0</tt> to ten pierwszy.</li>
+        <li><b>Dlaczego 256 głowic, skoro największa 8-bitowa liczba to 255?</b> Dokładnie ta sama historia</li>
+        <li><b>Dlaczego więc 63, nie 64, sektory?</b> Te same osoby odpowiedzialne postanowiły, że indeksowanie sektorów będzie się zaczynało od 1 ¯\_(ツ)_/¯</li>
+    </ul>
+Jest jeszcze jeden problem - dysk obiecuje nam 16383 cylindry, a tyle się w 10 bitach nie zmieści - o co z tym chodzi?
+Tutaj dochodzimy do sposobu, w jaki wbudowane w dysk kontrolery tłumaczyły kaprysy BIOSu na fizyczne dane. A jaki to był sposób? Kłamstwo, a jak! Kontroler podawał BIOSowi inną
+            geometrię niż rzeczywista i służył jako pośrednik: tłumaczył geometrię programową na fizyczną i
+            odwrotnie. Czy to działało? Jeszcze jak! Dopóki liczba sektorów (<tt>C * H * S</tt>) się zgadzała, to jak to się tam dokładnie na dysku odbywa, BIOS niewiele obchodzi.
+        Dysk jest datowany na II 2010, a wtedy BIOS jeszcze był powszechny; (U)EFI dopiero się rozkręcało.</p>
+<p>Kolejna ciekawostka: jeśli dysk kłamie, to czemu "pokazuje" BIOSowi tylko 16 głowic, kiedy ten spokojnie potrafi obsłużyć 256? Odpowiedź: to jest dysk IDE, a standard IDE w momencie publikacji postanowił
+    udawać przed BIOSem dobrze mu znany <a href="https://www.ctyme.com/intr/rb-0607.htm">starszy kontroler dysku</a>, który... nie działa. To znaczy, działa świetnie, ale ze względu na swój wiek 
+    (wydany na rynek <a href="http://www.bitsavers.org/pdf/westernDigital/pc_disk_controller/WD1003/WD1003-WA2_OEM_Manual_198603.pdf">w 1986</a>) obsługuje zaledwie 16 głowic. To jest nieprzekraczalna granica dla dysku, która istnieje przez sposób, w jaki jest połączony.
+</p>
 
         <p><b>Gdzie teraz jest CHS?</b></p>
         <p>Nie ma! Intel w 2017 roku ogłosił, że w 2020 roku dokona defenestracji BIOS i słowa dotrzymał - nowe
@@ -97,7 +158,7 @@ ES:BX = wskaźnik do miejsca, w które ma się wczytać
         <hr>
         <p>X 2023 - VII 2024, Kamil Bublij</p>
         <p>E-mail: kamilok2004[at]gmail[dot]com</p>
-        <p>Wszystkie użyte tu obrazy są częścią domeny publicznej.</p>
+        <p>Wszystkie użyte tu obrazy są częścią domeny publicznej, jeśli podpis pod nimi nie twierdzi inaczej.</p>
     </center>
 </body>
 

@@ -33,18 +33,23 @@
             A poza tym chcę zobaczyć, jak szybko mnie to ugryzie :)</p>
             <h3>Coś o systemie budowania</h3>
             <p>CMake to nie jest najczęstszy wybór do prac na tak niskim poziomie, ale wolę to niż pracę z Makefilami.
-                Ciekawostka: CMake baardzo gryzie się z NASM, a jak już to jakoś opanujesz, to się dowiesz, że jego
-                zdaniem <tt>.asm</tt> to nie jest poprawne roszerzenie asemblera. Te dwie rzeczy
+                Ciekawostka: CMake bardzo gryzie się z NASM, a jak już to jakoś opanujesz, to się dowiesz, że jego
+                zdaniem <tt>.asm</tt> to nie jest poprawne rozszerzenie asemblera. Te dwie rzeczy
                 łącznie zajęły mi parę chwil, ale teraz w pliku budowania jest rozwiązanie, które okazuje się być
                 banalnym (&lt;10 linijek) patchem, który dostał wprowadzony dopiero w <b>CMake 3.30</b>! Dlaczego to
-                dziwne? Bo CMake 3.30 został wydany 18 VII 2024, a prace nad projektem zacząłem pod koniec czerwca 2024.
+                dziwne? Bo CMake 3.30 został wydany 18 VII 2024, a prace nad projektem zacząłem pod koniec czerwca 2024 (a tak CMake, jak i NASM, liczą już sobie grubo ponad 20 lat).
                 Co poradzić? Cieszę się, że CMake i NASM już się nie gryzą.</p>
             <h3>Coś o CHS, czyli dlaczego nowe systemy muszą* używać technologii lat 60'</h3>
             <a href="chs.html"><i>Ten wpis jest na innej stronie, bo długi się zrobił</i></a>
-
+            <h3>Jak szybko osiwieć, czyli co to "blok"</h3>
+            <p>Wracamy do analogii z ciastem :)</p>
+            <p>Zgodnie z teorią CHS, <i>blok</i> to jakiś kawałek dysku powstały z przecięcia głowicy, cylindra<sup>1</sup> i sektora. Taki blok ma tyle miejsca, ile ustali producent dysku (zazwyczaj 512 bitów, ale bywało mniej albo więcej, a czasem zdarzały się cuda typu 520).</p>
+            <p>Teraz się zaczyna fajne! Zgodnie z konwencją Unix, <i>blok</i> jest jednoznaczny z <i>sektorem</i>. </p>
         </div>
     </center>
     <center>
+        <hr>
+        <p><sup>1</sup>W literaturze, zwłaszcza anglojęzycznej, zdarzy się określenie <i>ścieżki</i>. Wyjaśniam: ścieżka i cylinder to dokładnie to samo</p>
         <hr>
         <p>X 2023 - VII 2024, Kamil Bublij</p>
         <p>E-mail: kamilok2004[at]gmail[dot]com</p>
