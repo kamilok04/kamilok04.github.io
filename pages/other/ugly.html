@@ -1,27 +1,50 @@
-<!DOCTYPE html>
-<html lang="pl">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
 <head>
-    <meta charset="UTF-8">
+    <meta name="charset" content="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skąd ten wygląd?</title>
-    <link rel="stylesheet" href="/media/css/css.css">
 </head>
-<body>
-    <body bgcolor="backwards compatilble">
-        <article>
-                <h1>Dlaczego ta strona tak źle wygląda?</h1>
-                <img src="/media/img/ugly.png" alt="Dlatego :)">
+
+<body bgcolor="backwards compatible">
+    <center>
+        <h1>Dlaczego ta strona tak źle wygląda?</h1>
+        <img src="/media/img/ugly.png" alt="Dlatego :)" width="480" height="320">
         <p><i>Rysunek 1: dlatego* (zrzut z IE3, data wydania: VIII 1996)</i></p>
-        <p>*użyłem proxy, żeby do strony się dostać, ale to nie ma nic wspólnego z samą stroną, chodzi o hosting - ten tu wymaga zabezpieczeń, których po prostu w przeglądarce nie ma. Kiedyś to będzie prywatna domena, a wtedy wyłączę takie utrudnienia :)</p>
+        <p>*użyłem proxy, żeby do strony się dostać, ale to nie ma nic wspólnego z samą stroną, chodzi o hosting
+            - ten tu wymaga zabezpieczeń, których po prostu w przeglądarce nie ma. Kiedyś to będzie prywatna
+            domena, a wtedy wyłączę takie utrudnienia :)</p>
 
-        </article>
+    </center>
 
-        <footer>
-            <hr>
-            <p>X 2023 - VII 2024, Kamil Bublij</p>
-            <p>E-mail: kamilok2004[at]gmail[dot]com</p>
+    <center>
+        <h2>Parę ciekawych spostrzeżeń o HTML3.2</h2>
+        <ul align="left">
+            <li>Atrybuty typu <tt>id</tt>, <tt>style</tt> czy <tt>class</tt> <a
+                    href="https://www.w3.org/TR/2018/SPSD-html32-20180315/#dtd">nie istnieją</a> i przeglądarka je
+                zignoruje. Ciekawi mnie to o tyle, że w wersji 3.0 one istniały i miały się dobrze.</li>
+            <li>Znacznik <tt>&lt;center&gt;</tt> oznacza <b>dokładnie</b> to samo, co <tt>&lt;div
+                    align="center"&gt;</tt> i przeglądarka Musi&trade; traktować je tak samo (<a
+                    href="https://www.w3.org/TR/2018/SPSD-html32-20180315/#div">dowód</a>).</li>
+            <li>Myślałem o zastosowaniu HTML2.0 dla tej strony, ale to powoduje kilka <i>fajnych</i> rzeczy:
+                <ul>
+                    <li>nie istnieją <tt>div</tt>y, w zamian należy użyć <tt>frame</tt>, a to przyjemne nie jest;</li>
+                    <li>nie istnieje atrybut <tt>bgcolor</tt> i nie ma żadnego znanego mi i zgodnego ze standardem nadania czemuś koloru;</li>
+                </ul>
+            </li>
+            <li>Znacznik <tt>&lt;style&gt;</tt> istnieje, ale standard prosi, żeby przeglądarki go ignorowały, bo prace nad nim jeszcze się nie zakończyły. 
+                Co więcej, innego sposobu dostarczania CSS, czyli <tt>&lt;link rel="stylesheet"&gt;</tt> nie ma wcale.</li>
+        </ul>
+    </center>
+    <center>
+        <hr>
+        <p>X 2023 - VII 2024, Kamil Bublij</p>
+        <p>E-mail: kamilok2004[at]gmail[dot]com</p>
 
-        </footer>
+
+
+    </center>
 </body>
-</body>
+
 </html>

@@ -1,23 +1,22 @@
-<!DOCTYPE html>
-<html lang="pl">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
 
 <head>
-    <meta charset="UTF-8">
+    <meta name="charset" content="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PierdolnikOS</title>
-    <link rel="stylesheet" href="/media/css/css.css">
 </head>
 
 <body bgcolor="this is a journal">
-    <article>
+    <center>
         <h1>PierdolnikOS: (prawie) dziennik pokładowy</h1>
         <p>Ustanawiam, co następuje: co ciekawsze rzeczy i obserwacje będę zapisywał tutaj w tym oto (prawie) dzienniku.
         </p>
         <b>Ten dziennik to w żadnym przypadku formalna dokumentacja, a tylko zbiór moich luźnych i co ciekawszych
             spostrzeżeń. <br> Czytelniku, spodziewaj się nie zawsze dojrzałego humoru</b>
         <hr>
-        <div class="entry">
-            <h3>23 VII 2024</h3>
+        <div align="left">
+            <h2>23 VII 2024</h2>
             <p>Niestety pomysł utworzenia dziennika nie przyszedł mi do głowy w momencie rozpoczęcia projektu, a ze dwa
                 tygodnie później. Po prostu tutaj wpiszę wszystkie przemyślenia, które wpisałbym wcześniej, też będzie
                 dobrze.</p>
@@ -32,83 +31,26 @@
                     wkleić.</li>
             </ol>
             A poza tym chcę zobaczyć, jak szybko mnie to ugryzie :)</p>
-            <h4>Coś o systemie budowania</h4>
+            <h3>Coś o systemie budowania</h3>
             <p>CMake to nie jest najczęstszy wybór do prac na tak niskim poziomie, ale wolę to niż pracę z Makefilami.
                 Ciekawostka: CMake baardzo gryzie się z NASM, a jak już to jakoś opanujesz, to się dowiesz, że jego
-                zdaniem <span class="code">.asm</span> to nie jest poprawne roszerzenie asemblera. Te dwie rzeczy
+                zdaniem <tt>.asm</tt> to nie jest poprawne roszerzenie asemblera. Te dwie rzeczy
                 łącznie zajęły mi parę chwil, ale teraz w pliku budowania jest rozwiązanie, które okazuje się być
                 banalnym (&lt;10 linijek) patchem, który dostał wprowadzony dopiero w <b>CMake 3.30</b>! Dlaczego to
                 dziwne? Bo CMake 3.30 został wydany 18 VII 2024, a prace nad projektem zacząłem pod koniec czerwca 2024.
                 Co poradzić? Cieszę się, że CMake i NASM już się nie gryzą.</p>
-            <h4>Coś o CHS, czyli dlaczego nowe systemy muszą* używać technologii lat 60'</h4>
-            <p>
-                Gdzie jest twoje zdjęcie kotka? Zgadza się, gdzieś w RAM, ale najpierw musiało się tam jakoś znaleźć.
-                Skąd system wie, gdzie na dysku tego szukać? Dobrze byłoby komputerowi powiedzieć <i>szukaj w 2137.
-                    sektorze od początku dysku</i> (co to sektor, o tym zaraz). Wiesz jak takie coś zrobić? Brawo,
-                wynalazłeś <a href="https://en.wikipedia.org/wiki/Logical_block_addressing">system adresowania LBA</a>,
-                który robi dokładnie to i jest używany wszędzie, jakoś tak od połowy lat 90'. Dlaczego więc jeszcze
-                ktokolwiek pamięta o CHS?
-            </p>
-            <p>
-                W dużym skrócie, każdy starszy komputer uruchamia się w trybie BIOS, który "wystawia" programiście parę
-                przydatnych funkcji, przez takich jak my nazywanych <i>przerwaniami</i>. Jedną z takich funkcji jest
-                niewątpliwie przydatna operacja czytania z dysku (przerwanie 19 = 0x13). Gdzie problem? Jak już się
-                pewnie domyślasz, ta funkcja przyjmuje adres CHS. Tę decyzję podjęto przy projektowaniu pierwszych
-                BIOSów, a one są starsze niż pomysł LBA; jakoś już tak więc zostało. Dokładna <span class="underdots"
-                    title="Nie ma czegoś takiego! BIOSu nigdy nie ustandaryzowano i każdy producent robił, co chciał. Fajnie, nie?">dokumentacja</span>
-                nakazuje jakoś tak:
-            <pre>
-    AH = 2
-    AL = ile sektorów chcesz?
-    CH = niskie 8 bitów numeru cylindra
-    CL = wysokie 2 bity numeru cylindra, numer sektora
-    DH = numer głowicy
-    DL = numer dysku
-    ES:BX = wskaźnik do miejsca, w które ma się wczytać
-                    </pre> 
-                    Jeśli nie wiesz, jak działają rejestry trybu rzeczywistego, to czeka cię niespodzianka :)
-                <sub>A jak już przy tym jesteś, to przeczytaj sobie o trzech różnych rodzajach skoków i sześciu różnych
-                sposobach adresowania</sub>
-            </p>
-            <p>Tutaj warto sobie powiedzieć, co to w zasadzie jest ten CHS i o co chodzi z nim. Żeby to szybko
-                zrozumieć, potraktuj swój dysk twardy jak ciasto.</p>
-            <center><img src="/media/img/cake.jpg" alt="Dysk twardy jako ciasto" width="320" height="240">
-                <p><i>Rysunek 1: smaczny dysk twardy</i></p>
-            </center>
-            <p>Żeby uzyskać dostęp do danych w użyciem CHS, musisz (zaskakująco) znać C, H oraz S:
-            <ul>
-                <li><b>C</b>ylinder - jak daleko od środka są twoje dane?
-                </li>
-                <li><b>H</b>ead (głowica) - na którym talerzu możesz je znaleźć?
-                </li>
-                <li><b>S</b>ektor - która część talerza ma twoje dane?</li>
-            </ul>
-            Na razie brzmi beznadziejnie, ale po to mamy ciasto!
-            </p>
-            <p>Zacznij od wybrania sobie <s>kawałka</s> sektora (to jest dowolny sektor, nazwę go X): </p>
-            <center><img src="/media/img/slice.jpg" alt="sektor ciasta" height="320" width="320"><p><i>Rysunek 2: sektor ciasta twardego</i></p>
-            </center>
-            <p>Potem wybierz sobie z niego cylinder (to jest cylinder 0) - ja wybiorę ten z zewnątrz, bo jest największy i ma najwięcej lukru:</p>
-            <center><img src="/media/img/cylinder.jpg" alt="sektor ciasta" height="320" width="320"><p><i>Rysunek 3: najwięcej lukru!</i></p>
-                </center>
-            <p>Ostatni krok: wybierz swoją warstwę - ja wezmę drugą z góry, bo pierwsza już pewnie zeschła (to jest głowica 1):</p>
-            <center><img src="/media/img/block.jpg" alt="sektor ciasta" height="320" width="320"><p><i>Rysunek 4: koniec: prywatny blok ciasta (ciemniejszy kolor znaczy, że pod spodem)</i></p>
-            </center>
-            <p>Brawo, właśnie wziąłeś <s>ciasta</s> dysku o adresie CHS (0, 1, X)! <b>Dlaczego CHS to zły pomysł?</b></p>
-            <p>Dla zabawy załóżmy, że nasz blok mieści w sobie 1 KB. Możemy zobaczyć z obrazków, że nasz ciastodysk ma jakieś 12 sektorów, 4 cylindry i 3 głowice. Razem nam wychodzi, że nasze ciasto mieści: 12 * 4 * 3 * 1 = 144 [KB]. Skromnie, ale przynajmniej dzięki temu możemy uznać nasze ciasto za dietetyczne :) A poważnie, limit adresowania CHS to trochę mniej niż 8GB - jak na współczesne standardy, raczej mało. Co robiły większe dyski, żeby BIOS mógł z nich czytać? Kłamały, a jak! Kontrolery dysków podawało BIOSowi inną geometrię niż rzeczywista i służyły jako pośrednik: tłumaczyły geometrię programową na fizyczną i odwrotnie.</p>
+            <h3>Coś o CHS, czyli dlaczego nowe systemy muszą* używać technologii lat 60'</h3>
+            <a href="chs.html"><i>Ten wpis jest na innej stronie, bo długi się zrobił</i></a>
 
-            <p><b>Gdzie teraz jest CHS?</b></p>
-            <p>Nie ma! Intel w 2017 roku ogłosił, że w 2020 roku dokona defenestracji BIOS i słowa dotrzymał - nowe sprzęty już wspierają wyłącznie rozruch (U)EFI, o którym też się co nieco w tym dzienniku wkrótce pojawi. Razem z przerwaniem 0x13 umarło ostatnie poważne zastosowanie już dawno i tak przeterminowanego systemu adresowania.</p>
-            <center><p><b>BIOS 1981 - 2020 [*]</b></p></center>
-    </article>
-
-    <footer>
+        </div>
+    </center>
+    <center>
         <hr>
         <p>X 2023 - VII 2024, Kamil Bublij</p>
         <p>E-mail: kamilok2004[at]gmail[dot]com</p>
         <p>Wszystkie użyte tu obrazy są częścią domeny publicznej.</p>
 
-    </footer>
+    </center>
 
 </body>
 
