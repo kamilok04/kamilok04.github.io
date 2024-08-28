@@ -1,0 +1,351 @@
+/* globalne rzeczy */
+
+:root {
+    --main: #282526;
+    --aux: #fcd116;
+    --main-alt: #322f30;
+    --aux-alt: #ab912c;
+    --main-third: #6e6d6b;
+    --main-fourth: #aaa;
+
+    --rooms-count: 5;
+
+    --wide-threshold: 1280px;
+    --mobile-threshold: 850px;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-alt);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    display: flex;
+    flex-flow: column;
+}
+
+h1,h2,h3,h4,h5,h6,p,li, th, td{
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+}
+
+ul{
+    margin: auto;
+}
+li{
+    white-space: nowrap;
+    padding:0.5em;
+    text-align: left;
+}
+a{
+    text-decoration: none;
+    color: initial;
+}
+
+a:visited{
+    color:initial;
+}
+
+header {
+    
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4rem;
+    background-color: var(--main);
+
+}
+
+header>div{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+#logo{
+    flex:1;
+}
+#tabs{
+    flex:2;
+}
+
+
+.emph{
+    font-weight: bold;
+}
+
+/* --- */
+
+#logo img{
+    max-width: 100%;
+}
+
+#mobile-menu>img{
+    width: 3rem;
+}
+
+#main-container {
+    flex: 1 0 auto;
+}
+
+
+article {
+    display: flex;
+    flex-flow: column;
+
+    align-items: stretch;
+}
+
+
+footer {
+    display: flex;
+    flex-flow: row;
+    font-family: sans-serif;
+    text-align: center;
+    justify-content: space-around;
+    flex-shrink: 0;
+    background-color: var(--main-alt);
+    color: white;
+    background-color: var(--main);
+}
+
+footer a {
+    text-decoration: none;
+
+}
+
+footer a:visited,
+footer a:link {
+    color: white;
+}
+
+
+
+#tabs {
+    text-align: center;
+}
+
+#tabs>a:hover {
+    background-color: var(--aux);
+    color: var(--main);
+}
+
+#tabs>a {
+    color: white;
+    padding: 1rem 2vw;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+#book-container>a{
+    color: black;
+    background-color: var(--aux);
+    font-weight: bold;
+    font-family: sans-serif;
+    text-decoration: none;
+    padding: 1rem 2vw;
+    border-radius: 16px;
+}
+/* Rzeczy specyficzne dla podstron
+może powinny być w oddzielnych plikach */
+
+.rooms-container{
+    display: flex;
+    flex-flow: row;
+    padding: 1rem 4rem;
+    gap: 2rem;
+}
+
+#rooms-wheel{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    
+}
+#rooms-wheel img{
+    vertical-align: middle;
+    transition: 0.3s;
+}
+
+
+
+#room-brief{
+    margin: auto;
+    align-self: start;
+    position: sticky;
+    
+    bottom: 20vh;
+    top: 10vh;
+    min-width: 25%;
+}
+
+#room-brief-book{
+    color:var(--main);
+    background-color: var(--aux);
+    border-radius: 8px;;
+    font-family: sans-serif;
+    padding: 1rem;
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+}
+
+#room-brief-difficulty img{
+    filter:brightness(0);
+width: 2.5rem;
+}
+
+@keyframes star-fade-in{
+    from{filter:brightness(0);}
+    to{filter:brightness(1);}
+}
+@keyframes star-fade-out{
+    from{filter:brightness(1);}
+    to{filter:brightness(0);}
+}
+
+#opinion-carousel{
+    position: relative;
+    margin: auto;
+    max-width: 40vw;
+    display: inline-block;
+    width: 100%;
+    height: 30vh;
+}
+
+#opinion-carousel>img{
+    position:absolute;
+    max-height: 80%;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right: 0;
+
+    animation: yeet 6s cubic-bezier(0.5, 1, 0.5, 0) infinite;
+    display:none;
+}
+
+
+
+@keyframes yeet{
+    0%{transform: translateX(200%);}
+    100%{transform: translateX(-200%);}
+}
+
+#pricing{
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    color: white;
+    margin: auto;
+    font-family: sans-serif;
+    max-width: 1200px;
+    width: 100%;
+}
+
+#pricing table td, #pricing table th{
+    padding: 1em;
+    margin: 0;
+    border: 0;
+    border-collapse: collapse;
+}
+
+#pricing table tr:nth-child(2n){
+    background-color: var(--main-third);
+}
+
+#specials{
+    margin: 4rem auto;
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+}
+
+#specials ul{
+    max-width:50vw;
+    margin: auto;
+    list-style-type: square;
+}
+#specials li{
+
+    white-space: nowrap;
+    padding:0.5rem;
+}
+
+#event-details{
+    max-width: 75vw;
+    margin: auto;
+    text-align: center;
+}
+
+#event-details td, #event-details th{
+    padding: 1rem 3rem;
+}
+
+/* Szerokościowe rzeczy
+ta część odpowiada za responsywność */
+
+
+/* co tu się dzieje?
+są trzy klasy szerokości: wide (PC), mid-width (tablety i małe PC), mobile (tefelony)
+jeśli wygląd ma być dynamiczny, trzeba wpisać wszystkie żądane szerokości
+jeśli nie ma żadnej, to oznacza tylko i wyłącznie 'wide' 
+*/
+
+.mid-width:not(.wide), .mobile:not(.wide){
+    display: none;
+}
+
+/* mniejsze PC i tablety */
+@media screen and (max-width: 1280px) {
+    header{
+        padding: 1rem 2rem;
+        justify-content: space-evenly;
+    }
+
+
+    .mobile:not(.mid-width), .wide:not(.mid-width) {
+        display: none;
+    }
+
+    .mid-width{
+        display: contents;
+    }
+
+
+}
+
+/* telefony */
+
+@media screen and (max-width: 850px) {
+
+
+    .mid-width:not(.mobile), .wide:not(.mobile){
+        display:none;
+    }
+   
+    .mobile {
+        display: contents !important;
+    }
+
+    header{
+        padding: 1em;
+    }
+
+    #logo {
+        flex: initial;
+    }
+
+
+
+}
